@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Banquee.</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  
+    <nav class="navbar">
+    <div class="navbar-inner">
+      <div class="navbar-left">
+        <div class="navbar-logo">
+          <a href="index.html">
+            <img src="images/logo.svg" alt="Logo">
+          </a>
+        </div>
+      </div>
+      <div class="navbar-center">
+        <ul class="navbar-menu">
+          <li class="nav-menu-item"><a href="#">Клієнти</a></li>
+          <li class="nav-menu-item"><a href="#">Транзакції</a></li>
+          <li class="nav-menu-item"><a href="#">Депозити</a></li>
+          <li class="nav-menu-item"><a href="#">Сповіщення</a></li>
+        </ul>
+      </div>
+      <div class="navbar-right">
+        <a href="#">
+          <button class="btn-primary">
+            Button</button>
+        </a>
+      </div>
+    </div>
+  </nav>
+  <div class="page-padding">
+    <div class="conteiner-default">
+    <div class="home-hero-grid">
+      <div class="home-hero-grid-left">
+        <div class="margin-bottom">
+          <h1 class="heading-medium">Банкінг починається тут.</h1>
+        </div>
+        <div class="margin-bottom">
+          <div class="max-width-meduim">
+            <p class="text-size-xlarge">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+          </div>
+        </div>
+        <div class="home-hero-buttons">
+          <a href="#">
+            <button class="btn-primary">
+              Button
+            </button>
+          </a>
+          <a href="#">
+            <button class="btn-secondary">
+              Переглянути депозити
+            </button>
+          </a>
+        </div>
+      </div>
+      <div class="home-hero-grid-right">
+        <div class="home-hero-cards">
+          <img src="images/card-grey.svg" alt="" class="home-hero-card-1 ">
+          <img src="images/card-green.svg" alt="" class="home-hero-card-2">
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <!-- <h1>Транзакції</h1>
+  <table id="transactions-table">
+    <thead>
+      <tr>
+        <th>Тип</th>
+        <th>Сума</th>
+        <th>Дата</th>
+        <th>Опис</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+    </tbody>
+  </table>
+
+  <script>
+    fetch('http://localhost:5000/transactions')
+      .then(response => response.json())
+      .then(data => {
+        const tableBody = document.getElementById('transactions-table').getElementsByTagName('tbody')[0];
+        
+        data.forEach(transaction => {
+          const row = tableBody.insertRow();
+          row.insertCell(0).textContent = transaction.type;
+          row.insertCell(1).textContent = transaction.amount;
+          row.insertCell(2).textContent = new Date(transaction.date).toLocaleDateString();
+          row.insertCell(3).textContent = transaction.description;
+        });
+      })
+      .catch(err => console.log("Error fetching transactions:", err));
+  </script> -->
+</body>
+</html>
