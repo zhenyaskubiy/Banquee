@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=phone, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <nav class="navbar">
+    <div class="navbar-inner">
+      <div class="navbar-left">
+        <div class="navbar-logo">
+          <a href="index.html">
+            <img src="images/logo.svg" alt="Logo">
+          </a>
+        </div>
+    </div>
+    <div class="navbar-center">
+      <ul class="navbar-menu">
+        <li class="nav-menu-item"><a href="clients.html">Клієнти</a></li>
+        <li class="nav-menu-item"><a href="#">Транзакції</a></li>
+        <li class="nav-menu-item"><a href="#">Депозити</a></li>
+        <li class="nav-menu-item"><a href="#">Сповіщення</a></li>
+      </ul>
+    </div>
+    <div class="navbar-right">
+      <a href="#">
+        <button class="btn-primary">
+            Button
+        </button>
+      </a>
+    </div>
+  </div>
+</nav>
+    <div class="page-padding">
+    <h1 class="clients">Інформація про клієнтів</h1>
+      <table id="clients-table">
+        <thead>
+          <tr>
+            <th>ПІБ</th>
+            <th>Паспорт</th>
+            <th>Телефон</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+<script>
+  fetch('http://localhost:5000/clients')
+    .then(res => res.json())
+    .then(data => {
+      const tbody = document.querySelector('#clients-table tbody');
+      data.forEach(client => {
+        const row = tbody.insertRow();
+        row.insertCell(0).textContent = client.fullName;
+        row.insertCell(1).textContent = client.passport;
+        row.insertCell(2).textContent = client.phone;
+        row.insertCell(3).textContent = client.email;
+      });
+    });
+</script>
+</body>
+</html>
