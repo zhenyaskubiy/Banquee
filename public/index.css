@@ -70,7 +70,7 @@ body {
 .page-padding {
     padding-right: 8rem;
     padding-left: 8rem;
-    padding-top: 50px;
+    padding-top: 20px;
 }
 .container-default {
     width: 100%;
@@ -93,7 +93,7 @@ body {
 }
 .heading-medium {
     font-family: "DM Sans";
-    font-size: 5rem;
+    font-size: 4.5em;
     line-height: 100%;
     font-weight: 500;
     letter-spacing: -2px;
@@ -176,4 +176,67 @@ body {
 
 #clients-table th:last-child, #clients-table td:last-child {
   border-right: none;
+}
+.form-container {
+    max-width: 400px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 0.5rem 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px 0 rgba(91,181,162,0.08);
+}
+label { display: block; margin-top: 1rem; }
+select, input {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.3rem;
+    border-radius: 5px;
+    border: 1px solid #d1d5db;
+    font-size: 1rem;
+}
+.form-container .btn-primary{
+    width: 100%;
+    margin-top: 1rem;
+    margin-left: 10px;
+    background-color: #5bb5a2;
+    border: none;
+    color: white;
+    font-size: 15px;
+    padding: 0.5rem 1rem;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.success, .error { margin-top: 1rem; text-align: center; }
+.success { color: #22c55e; }
+.error { color: #ef4444; }
+.deposits-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+.deposit-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px 0 rgba(91,181,162,0.08);
+  padding: 2rem 1.5rem;
+  width: 260px;
+  transition: transform 0.2s;
+  background-color: #f4fffd;
+  border: 1px solid #e0f2f1;
+}
+.deposit-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 8px 15px 0 rgba(91, 181, 162, 0.555);
+}
+.deposit-card h2 {
+  color: #5bb5a2;
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+}
+.deposit-card p {
+  margin: 0.5rem 0;
+  color: #333;
 }

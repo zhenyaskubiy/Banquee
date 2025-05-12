@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Депозити</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <nav class="navbar">
+    <div class="navbar-inner">
+      <div class="navbar-left">
+        <div class="navbar-logo">
+          <a href="index.html">
+            <img src="images/logo.svg" alt="Logo">
+          </a>
+        </div>
+    </div>
+    <div class="navbar-center">
+      <ul class="navbar-menu">
+        <li class="nav-menu-item"><a href="clients.html">Клієнти</a></li>
+        <li class="nav-menu-item"><a href="#">Транзакції</a></li>
+        <li class="nav-menu-item"><a href="#">Депозити</a></li>
+        <li class="nav-menu-item"><a href="#">Сповіщення</a></li>
+      </ul>
+    </div>
+    <div class="navbar-right">
+      <a href="index.html">
+        <button class="btn-primary">
+            Відкрити рахунок
+        </button>
+      </a>
+    </div>
+  </div>
+</nav>
+<div class="page-padding">
+  <h1 style="text-align:center;">Депозити</h1>
+  <div id="deposits-cards" class="deposits-cards"></div>
+</div>
+<script>
+fetch('http://localhost:5000/deposits')
+  .then(res => res.json())
+  .then(data => {
+    const container = document.getElementById('deposits-cards');
+    container.innerHTML = '';
+    data.slice(0, 5).forEach(deposit => {
+      const card = document.createElement('div');
+      card.className = 'deposit-card';
+      card.innerHTML = `
+        <h2>${deposit.name}</h2>
+        <p><strong>Мінімальна сума:</strong> ${deposit.minAmount} грн</p>
+        <p><strong>Тривалість:</strong> ${deposit.durationMonths} міс.</p>
+        <p><strong>Умови:</strong> ${deposit.conditions}</p>
+      `;
+      container.appendChild(card);
+    });
+  })
+  .catch(err => {
+    document.getElementById('deposits-cards').innerHTML = '<p>Не вдалося завантажити депозити.</p>';
+  });
+</script>
+</body>
+</html>
