@@ -52,7 +52,15 @@ const transactionSchema = new mongoose.Schema({
   description: String,
   date: { type: Date, default: Date.now }
 });
- 
+
+const notificationSchema = new mongoose.Schema({
+  clientId: { type: mongoose.Schema.Types.ObjectId, ref: 'Client', required: true },
+  message: String,
+  date: { type: Date, default: Date.now },
+  read: { type: Boolean, default: false }
+});
+
+
 const Account = mongoose.model("Account", accountSchema, "accounts");
 
 const Client = mongoose.model("Client", clientSchema, "clients");
@@ -60,6 +68,8 @@ const Client = mongoose.model("Client", clientSchema, "clients");
 const Deposit = mongoose.model("Deposit", depositSchema, "deposits");
 
 const Transaction = mongoose.model("Transaction", transactionSchema, "transactions");
+
+const Notification = mongoose.model("Notification", notificationSchema, "notifications");
 
 app.use(cors());
 app.use(express.json());
@@ -137,6 +147,35 @@ app.get("/transactions", async (req, res) => {
   }
 });
 
+
+app.get("/notifications", async (req, res) => {
+  try {
+    const notifications = await Notification.find();
+    res.json(notifications);
+  } catch (err) {
+    res.status(500).json({ error: "Помилка сервера" });
+  }
+});
+
+
+app.put("/clients/:id", async (req, res) => {
+  try {
+    const updatedClient = await Client.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true } 
+    );
+
+    if (!updatedClient) {
+      return res.status(404).json({ error: "Клієнта не знайдено" });
+    }
+
+    res.json({ message: "Клієнта оновлено", client: updatedClient });
+  } catch (err) {
+    console.error("❌ Помилка оновлення клієнта:", err);
+    res.status(500).json({ error: "Помилка при оновленні клієнта", details: err.message });
+  }
+});
 
 
 app.listen(PORT, () => {

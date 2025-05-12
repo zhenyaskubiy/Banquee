@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сповіщення</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <nav class="navbar">
+    <div class="navbar-inner">
+      <div class="navbar-left">
+        <div class="navbar-logo">
+          <a href="index.html">
+            <img src="images/logo.svg" alt="Logo">
+          </a>
+        </div>
+    </div>
+    <div class="navbar-center">
+      <ul class="navbar-menu">
+        <li class="nav-menu-item"><a href="clients.html">Клієнти</a></li>
+        <li class="nav-menu-item"><a href="deposits.html">Депозити</a></li>
+        <li class="nav-menu-item"><a href="transactions.html">Транзакції</a></li>
+        <li class="nav-menu-item"><a href="#">Сповіщення</a></li>
+      </ul>
+    </div>
+    <div class="navbar-right">
+      <a href="account.html">
+        <button class="btn-primary">
+            Відкрити рахунок
+        </button>
+      </a>
+    </div>
+  </div>
+</nav>
+<div class="page-padding">
+      <h1>Сповіщення</h1>
+        <table id="notifications-table">
+        <thead>
+            <tr>
+            <th>Клієнт</th>
+            <th>Повідомлення</th>
+            <th>Дата</th>
+            <th>Статус</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+        </table>
+    </div>
+<script>
+Promise.all([
+  fetch('http://localhost:5000/notifications').then(res => res.json()),
+  fetch('http://localhost:5000/clients').then(res => res.json())
+]).then(([notifications, clients]) => {
+  const tbody = document.querySelector('#notifications-table tbody');
+  notifications.forEach(n => {
+    // Знайти клієнта за clientId
+    let clientName = '—';
+    if (n.clientId) {
+      const client = clients.find(c => c._id == n.clientId);
+      if (client) clientName = client.fullName;
+    }
+    const row = tbody.insertRow();
+    row.insertCell(0).textContent = clientName;
+    row.insertCell(1).textContent = n.message || '';
+    row.insertCell(2).textContent = n.date ? new Date(n.date).toLocaleString() : '';
+    row.insertCell(3).textContent = n.read ? 'Прочитано' : 'Непрочитано';
+  });
+});
+</script>
+</body>
+</html>

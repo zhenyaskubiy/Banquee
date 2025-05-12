@@ -4,6 +4,13 @@ body {
     color: rgb(26, 25, 30);
     line-height: 160%;
     font-weight: 400;
+    opacity: 0;
+  animation: fadeInBody 0.7s ease forwards;
+}
+@keyframes fadeInBody {
+  to {
+    opacity: 1;
+  }
 }
 .navbar {
     z-index: 1000;
@@ -39,6 +46,11 @@ body {
     z-index: 9999;
     list-style: none;
 }
+.nav-menu-item a:hover {
+    color: #5bb5a2;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
 .nav-menu-item a{
     color: black;
     text-decoration: none;
@@ -63,9 +75,15 @@ body {
     color: black;
     font-size: 13px;
     padding: 0.5rem 1rem;
+    margin-left: 1rem;
     text-align: center;
     border-radius: 5px;
     cursor: pointer;
+}
+.btn-primary:hover , .btn-secondary:hover{
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 8px 15px 0 rgba(91, 181, 162, 0.555);
+    transition: all 0.3s ease;
 }
 .page-padding {
     padding-right: 8rem;
@@ -103,8 +121,9 @@ body {
     max-width: 30rem;
 }
 .text-size-xlarge {
-    font-size: 1.5rem;
-    line-height: 160%;
+    font-size: 20px;
+    line-height: 140%;
+    padding-bottom: 1rem;
 }
 .home-hero-cards {
     padding-top: 2rem;
@@ -140,7 +159,7 @@ body {
 .home-hero-cards:hover .home-hero-card-2 {
     transform: translate(20px, 20px) rotate(5deg);
 }
-#clients-table, #transactions-table {
+#clients-table, #transactions-table, #notifications-table{
   width: 100%;
   border-collapse: collapse;
   margin-top: 2rem;
@@ -151,30 +170,30 @@ body {
   font-family: "DM Sans", Arial, sans-serif;
 }
 
-#clients-table th, #clients-table td, #transactions-table th, #transactions-table td {
+#clients-table th, #clients-table td, #transactions-table th, #transactions-table td, #notifications-table th, #notifications-table td {
   padding: 1rem 1.5rem;
   text-align: left;
 }
 
-#clients-table thead, #transactions-table thead {
+#clients-table thead, #transactions-table thead, #notifications-table thead {
   background: #5bb5a2;
   color: #fff;
 }
 
-#clients-table tbody tr , #transactions-table tbody tr {
+#clients-table tbody tr , #transactions-table tbody tr, #notifications-table tbody tr {
   border-bottom: 1px solid #f0f0f0;
   transition: background 0.2s;
 }
 
-#clients-table tbody tr:hover , #transactions-table tbody tr:hover {
+#clients-table tbody tr:hover , #transactions-table tbody tr:hover, #notifications-table tbody tr:hover {
   background: #e6f7f3;
 }
 
-#clients-table th:first-child, #clients-table td:first-child , #transactions-table th:first-child, #transactions-table td:first-child {
+#clients-table th:first-child, #clients-table td:first-child , #transactions-table th:first-child, #transactions-table td:first-child, #notifications-table th:first-child, #notifications-table td:first-child {
   border-left: none;
 }
 
-#clients-table th:last-child, #clients-table td:last-child , #transactions-table th:last-child, #transactions-table td:last-child {
+#clients-table th:last-child, #clients-table td:last-child , #transactions-table th:last-child, #transactions-table td:last-child, #notifications-table th:last-child, #notifications-table td:last-child {
   border-right: none;
 }
 .form-container {
@@ -216,6 +235,7 @@ select, input {
   gap: 2rem;
   justify-content: center;
   margin-top: 2rem;
+  padding-bottom: 1rem;
 }
 .deposit-card {
   background: #fff;
@@ -239,4 +259,16 @@ select, input {
 .deposit-card p {
   margin: 0.5rem 0;
   color: #333;
+}
+footer {
+  background: #f7fafc;
+  font-weight: 700;
+  color: #5bb5a2;
+  text-align: center;
+  padding: 1.5rem 0;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  border-top: 1px solid #e0e0e0;
+  margin-top: 4rem;
+  font-family: "DM Sans", Arial, sans-serif;
 }

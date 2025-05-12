@@ -21,7 +21,7 @@
         <li class="nav-menu-item"><a href="clients.html">Клієнти</a></li>
         <li class="nav-menu-item"><a href="deposits.html">Депозити</a></li>
         <li class="nav-menu-item"><a href="transactions.html">Транзакції</a></li>
-        <li class="nav-menu-item"><a href="#">Сповіщення</a></li>
+        <li class="nav-menu-item"><a href="notifications.html">Сповіщення</a></li>
       </ul>
     </div>
     <div class="navbar-right">
@@ -42,7 +42,8 @@
         </div>
         <div class="margin-bottom">
           <div class="max-width-meduim">
-            <p class="text-size-xlarge">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+            <p class="text-size-xlarge">Цей застосунок можна використати для управління клієнтами, депозитами, рахунками та транзакціями в банківській системі.
+</p>
           </div>
         </div>
         <div class="home-hero-buttons">
@@ -66,56 +67,8 @@
       </div>
     </div>
   </div>
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <!-- <h1>Транзакції</h1>
-  <table id="transactions-table">
-    <thead>
-      <tr>
-        <th>Тип</th>
-        <th>Сума</th>
-        <th>Дата</th>
-        <th>Опис</th>
-      </tr>
-    </thead>
-    <tbody>
-      
-    </tbody>
-  </table>
-
-  <script>
-    fetch('http://localhost:5000/transactions')
-      .then(response => response.json())
-      .then(data => {
-        const tableBody = document.getElementById('transactions-table').getElementsByTagName('tbody')[0];
-        
-        data.forEach(transaction => {
-          const row = tableBody.insertRow();
-          row.insertCell(0).textContent = transaction.type;
-          row.insertCell(1).textContent = transaction.amount;
-          row.insertCell(2).textContent = new Date(transaction.date).toLocaleDateString();
-          row.insertCell(3).textContent = transaction.description;
-        });
-      })
-      .catch(err => console.log("Error fetching transactions:", err));
-  </script> -->
+  <footer>
+    &copy; 2025 Скубій Євгенії
+  </footer>
 </body>
 </html>
