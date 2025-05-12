@@ -19,8 +19,8 @@
     <div class="navbar-center">
       <ul class="navbar-menu">
         <li class="nav-menu-item"><a href="clients.html">Клієнти</a></li>
-        <li class="nav-menu-item"><a href="#">Транзакції</a></li>
         <li class="nav-menu-item"><a href="deposits.html">Депозити</a></li>
+        <li class="nav-menu-item"><a href="transactions.html">Транзакції</a></li>
         <li class="nav-menu-item"><a href="#">Сповіщення</a></li>
       </ul>
     </div>
@@ -51,9 +51,10 @@
         <option value="EUR">EUR</option>
       </select>
 
-      <label for="depositId">ID депозиту</label>
-      <input type="text" id="depositId" name="depositId" required>
-
+      <label for="depositId">Депозит</label>
+        <select id="depositId" name="depositId" required>
+        <option value="">Оберіть депозит...</option>
+        </select>
       <button type="submit" class="btn-primary">Підтвердити</button>
       <div class="success" id="success-msg" style="display:none;"></div>
       <div class="error" id="error-msg" style="display:none;"></div>
@@ -72,6 +73,17 @@
           select.appendChild(option);
         });
       });
+    fetch('http://localhost:5000/deposits')
+        .then(res => res.json())
+        .then(data => {
+        const select = document.getElementById('depositId');
+        data.forEach(deposit => {
+            const option = document.createElement('option');
+            option.value = deposit._id;
+            option.textContent = deposit.name + ' (' + deposit.durationMonths + ' міс.)';
+            select.appendChild(option);
+        });
+        });
 
     document.getElementById('account-form').addEventListener('submit', function(e) {
       e.preventDefault();

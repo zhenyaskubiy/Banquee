@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Депозити</title>
+    <title>Транзакції</title>
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
@@ -20,7 +20,7 @@
       <ul class="navbar-menu">
         <li class="nav-menu-item"><a href="clients.html">Клієнти</a></li>
         <li class="nav-menu-item"><a href="deposits.html">Депозити</a></li>
-        <li class="nav-menu-item"><a href="transactions.html">Транзакції</a></li>
+        <li class="nav-menu-item"><a href="#">Транзакції</a></li>
         <li class="nav-menu-item"><a href="#">Сповіщення</a></li>
       </ul>
     </div>
@@ -34,30 +34,37 @@
   </div>
 </nav>
 <div class="page-padding">
-  <h1 style="text-align:center;">Депозити</h1>
-  <div id="deposits-cards" class="deposits-cards"></div>
-</div>
+    <h1 class="transactions">Транзакції</h1>
+      <table id="transactions-table">
+        <thead>
+          <tr>
+            <th>Клієнт</th>
+            <th>Тип</th>
+            <th>Сума</th>
+            <th>Дата</th>
+            <th>Опис</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
 <script>
-fetch('http://localhost:5000/deposits')
+fetch('http://localhost:5000/transactions')
   .then(res => res.json())
-  .then(data => {
-    const container = document.getElementById('deposits-cards');
-    container.innerHTML = '';
-    data.slice(0, 5).forEach(deposit => {
-      const card = document.createElement('div');
-      card.className = 'deposit-card';
-      card.innerHTML = `
-        <h2>${deposit.name}</h2>
-        <p><strong>Мінімальна сума:</strong> ${deposit.minAmount} грн</p>
-        <p><strong>Тривалість:</strong> ${deposit.durationMonths} міс.</p>
-        <p><strong>Умови:</strong> ${deposit.conditions}</p>
-      `;
-      container.appendChild(card);
+  .then(transactions => {
+    const tbody = document.querySelector('#transactions-table tbody');
+    transactions.forEach(tr => {
+      const clientName = tr.clientId?.fullName || '—';
+      const row = tbody.insertRow();
+      row.insertCell(0).textContent = clientName;
+      row.insertCell(1).textContent = tr.type || '';
+      row.insertCell(2).textContent = tr.amount || '';
+      row.insertCell(3).textContent = tr.date ? new Date(tr.date).toLocaleString() : '';
+      row.insertCell(4).textContent = tr.description || '';
     });
-  })
-  .catch(err => {
-    document.getElementById('deposits-cards').innerHTML = '<p>Не вдалося завантажити депозити.</p>';
   });
+</script>
 </script>
 </body>
 </html>

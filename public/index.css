@@ -140,7 +140,7 @@ body {
 .home-hero-cards:hover .home-hero-card-2 {
     transform: translate(20px, 20px) rotate(5deg);
 }
-#clients-table {
+#clients-table, #transactions-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 2rem;
@@ -151,30 +151,30 @@ body {
   font-family: "DM Sans", Arial, sans-serif;
 }
 
-#clients-table th, #clients-table td {
+#clients-table th, #clients-table td, #transactions-table th, #transactions-table td {
   padding: 1rem 1.5rem;
   text-align: left;
 }
 
-#clients-table thead {
+#clients-table thead, #transactions-table thead {
   background: #5bb5a2;
   color: #fff;
 }
 
-#clients-table tbody tr {
+#clients-table tbody tr , #transactions-table tbody tr {
   border-bottom: 1px solid #f0f0f0;
   transition: background 0.2s;
 }
 
-#clients-table tbody tr:hover {
+#clients-table tbody tr:hover , #transactions-table tbody tr:hover {
   background: #e6f7f3;
 }
 
-#clients-table th:first-child, #clients-table td:first-child {
+#clients-table th:first-child, #clients-table td:first-child , #transactions-table th:first-child, #transactions-table td:first-child {
   border-left: none;
 }
 
-#clients-table th:last-child, #clients-table td:last-child {
+#clients-table th:last-child, #clients-table td:last-child , #transactions-table th:last-child, #transactions-table td:last-child {
   border-right: none;
 }
 .form-container {

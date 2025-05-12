@@ -19,6 +19,14 @@ const clientSchema  = new mongoose.Schema({
   passport: String,
   phone: String,
   email: String,
+  accounts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Account' }],
+  transactions: [
+    {
+      type: String,         
+      amount: Number,
+      date: Date,
+      description: String
+    } ]
 });
 
 const accountSchema = new mongoose.Schema({
@@ -36,11 +44,23 @@ const depositSchema = new mongoose.Schema({
   conditions: String
 });
 
+const transactionSchema = new mongoose.Schema({
+  clientId: { type: mongoose.Schema.Types.ObjectId, ref: 'Client', required: true },
+  accountId: { type: mongoose.Schema.Types.ObjectId, ref: 'Account' },
+  amount: Number,
+  type: String,
+  description: String,
+  date: { type: Date, default: Date.now }
+});
+ 
 const Account = mongoose.model("Account", accountSchema, "accounts");
 
 const Client = mongoose.model("Client", clientSchema, "clients");
 
 const Deposit = mongoose.model("Deposit", depositSchema, "deposits");
+
+const Transaction = mongoose.model("Transaction", transactionSchema, "transactions");
+
 app.use(cors());
 app.use(express.json());
 
@@ -54,6 +74,7 @@ app.get("/clients", async (req, res) => {
   }
 });
 
+
 app.post("/accounts", async (req, res) => {
   try {
     const { clientId, depositId, balance, currency } = req.body;
@@ -66,12 +87,30 @@ app.post("/accounts", async (req, res) => {
     });
 
     await newAccount.save();
+
+    await Client.findByIdAndUpdate(
+      clientId,
+      { $push: { accounts: newAccount._id } }
+    );
+
     res.status(201).json({ message: "Рахунок створено", account: newAccount });
   } catch (err) {
     console.error("❌ Помилка створення рахунку:", err);
     res.status(500).json({ error: "Помилка при створенні рахунку", details: err.message });
   }
 });
+
+
+app.get("/accounts", async (req, res) => {
+  try {
+    const accounts = await Account.find();
+    res.json(accounts);
+  } catch (err) {
+    console.error("❌ Помилка отримання рахунків:", err);
+    res.status(500).json({ error: "Помилка сервера" });
+  }
+});
+
 
 app.get("/deposits", async (req, res) => {
   try {
@@ -82,16 +121,23 @@ app.get("/deposits", async (req, res) => {
     res.status(500).json({ error: "Помилка сервера" });
   }
 });
-// const Transaction = mongoose.model("Transaction", transactionSchema, "transactions");
-// app.get("/transactions", async (req, res) => {
-//   try {
-//     const transactions = await Transaction.find().sort({ date: -1 });
-//     res.json(transactions);
-//   } catch (err) {
-//     console.error("❌ Помилка отримання транзакцій:", err);
-//     res.status(500).json({ error: "Помилка сервера" });
-//   }
-// });
+
+
+app.get("/transactions", async (req, res) => {
+  try {
+    const transactions = await Transaction.find()
+      .populate("clientId", "fullName") 
+      .sort({ date: -1 })
+      .lean();
+
+    res.json(transactions);
+  } catch (err) {
+    console.error("❌ Помилка отримання транзакцій:", err);
+    res.status(500).json({ error: "Помилка сервера" });
+  }
+});
+
+
 
 app.listen(PORT, () => {
   console.log(`🚀 Сервер працює на http://localhost:${PORT}`);

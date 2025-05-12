@@ -19,8 +19,8 @@
     <div class="navbar-center">
       <ul class="navbar-menu">
         <li class="nav-menu-item"><a href="clients.html">Клієнти</a></li>
-        <li class="nav-menu-item"><a href="#">Транзакції</a></li>
         <li class="nav-menu-item"><a href="deposits.html">Депозити</a></li>
+        <li class="nav-menu-item"><a href="transactions.html">Транзакції</a></li>
         <li class="nav-menu-item"><a href="#">Сповіщення</a></li>
       </ul>
     </div>
@@ -42,6 +42,7 @@
             <th>Паспорт</th>
             <th>Телефон</th>
             <th>Email</th>
+            <th>Рахунки</th>
           </tr>
         </thead>
         <tbody>
@@ -49,18 +50,24 @@
       </table>
     </div>
 <script>
-  fetch('http://localhost:5000/clients')
-    .then(res => res.json())
-    .then(data => {
-      const tbody = document.querySelector('#clients-table tbody');
-      data.forEach(client => {
-        const row = tbody.insertRow();
-        row.insertCell(0).textContent = client.fullName;
-        row.insertCell(1).textContent = client.passport;
-        row.insertCell(2).textContent = client.phone;
-        row.insertCell(3).textContent = client.email;
-      });
-    });
+Promise.all([
+  fetch('http://localhost:5000/clients').then(res => res.json()),
+  fetch('http://localhost:5000/accounts').then(res => res.json())
+]).then(([clients, accounts]) => {
+  const tbody = document.querySelector('#clients-table tbody');
+  clients.forEach(client => {
+    const row = tbody.insertRow();
+    row.insertCell(0).textContent = client.fullName;
+    row.insertCell(1).textContent = client.passport;
+    row.insertCell(2).textContent = client.phone;
+    row.insertCell(3).textContent = client.email;
+
+    const clientAccounts = accounts.filter(acc => acc.clientId === client._id || acc.clientId == client._id);
+    row.insertCell(4).innerHTML = clientAccounts.length
+      ? clientAccounts.map(acc => `${acc.balance} ${acc.currency}`).join('<br>')
+      : '—';
+  });
+});
 </script>
 </body>
 </html>
